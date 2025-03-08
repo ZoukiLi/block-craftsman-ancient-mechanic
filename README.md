@@ -80,7 +80,7 @@ A browser-based simulation game where you control vehicles and cranes to manipul
 ### Installation
 1. Clone the repository:
    ```
-   git clone https://github.com/yourusername/block-craftsman-ancient-mechanic.git
+   git clone https://github.com/ZoukiLi/block-craftsman-ancient-mechanic.git
    ```
 2. Open the `index.html` file in your browser
 

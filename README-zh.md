@@ -80,7 +80,7 @@
 ### 安装
 1. 克隆仓库：
    ```
-   git clone https://github.com/yourusername/block-craftsman-ancient-mechanic.git
+   git clone https://github.com/ZoukiLi/block-craftsman-ancient-mechanic.git
    ```
 2. 在浏览器中打开`index.html`文件
 
