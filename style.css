@@ -1,0 +1,333 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.game-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.game-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.game-main {
+    display: flex !important;  /* 确保覆盖其他样式 */
+    flex-direction: column !important;  /* 确保垂直排列 */
+    gap: 20px !important;
+    width: 100% !important;
+}
+
+.game-area {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    height: 400px;
+    width: fit-content;  /* 适应内容宽度 */
+    margin: 0 auto;  /* 居中显示 */
+}
+
+.game-world {
+    width: 800px;  /* 20个方块 × 40px */
+    height: 400px;  /* 10个方块 × 40px */
+    flex-shrink: 0;  /* 防止压缩 */
+    border: 1px solid #ccc;
+    background-color: #87CEEB;  /* 恢复天空蓝色 */
+    position: relative;  /* 为内部绝对定位的方块提供参考 */
+    overflow: hidden;  /* 防止方块溢出 */
+}
+
+.machines-list {
+    width: 250px;
+    flex-shrink: 0;
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+}
+
+.controls-row {
+    display: flex;
+    flex-direction: row;  /* 控制面板水平排列 */
+    gap: 20px;
+    padding: 15px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.actions, .machine-controls {
+    flex: 1;
+    background: #f5f5f5;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.game-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.resources {
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.instructions {
+    background-color: #fffde7;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    border-left: 4px solid #ffd54f;
+}
+
+.message-area {
+    background-color: #e8f5e9;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    border-left: 4px solid #66bb6a;
+    font-weight: bold;
+    min-height: 40px;
+}
+
+.machine-item {
+    padding: 12px;
+    margin: 5px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    transition: all 0.2s ease;
+}
+
+.machine-item:hover {
+    background-color: #f5f5f5;
+    transform: translateX(2px);
+}
+
+.machine-item.selected {
+    background-color: #e3f2fd;
+    border-color: #2196f3;
+    box-shadow: 0 2px 4px rgba(33, 150, 243, 0.1);
+}
+
+.machine-icon {
+    width: 24px;
+    height: 24px;
+    border: 1px solid #333;
+    flex-shrink: 0;
+}
+
+.machine-icon.vehicle {
+    background-color: #FF8C00;
+}
+
+.machine-icon.crane {
+    background-color: #8B4513;
+}
+
+.machine-info {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.machine-title {
+    font-weight: bold;
+    color: #333;
+}
+
+.machine-status {
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 3px;
+    display: inline-block;
+    width: 100%;
+    line-height: 1.4;
+}
+
+.status-empty {
+    background-color: #f5f5f5;
+    color: #666;
+}
+
+.status-loaded {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+h3 {
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 5px;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    margin: 5px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+/* Game blocks */
+.block {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    background-size: cover;
+    background-position: center;
+}
+
+.air {
+    /* Air is invisible */
+}
+
+.dirt {
+    background-color: #8B4513;
+}
+
+.stone {
+    background-color: #A9A9A9;
+}
+
+.tree {
+    background-color: #228B22;
+}
+
+.wood {
+    background-color: #CD853F;
+}
+
+/* 车辆样式 */
+.vehicle {
+    background-color: #FF8C00;
+    border: 2px solid #000;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+/* 装载的方块样式 */
+.loaded-block {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #333;
+}
+
+/* 装载的不同类型方块样式 */
+.loaded-block.dirt {
+    background-color: #8B4513;
+}
+
+.loaded-block.stone {
+    background-color: #A9A9A9;
+}
+
+.loaded-block.tree {
+    background-color: #228B22;
+}
+
+.loaded-block.wood {
+    background-color: #CD853F;
+}
+
+/* 起重机基座 */
+.crane-base {
+    background-color: #4A4A4A;
+    border: 2px solid #000;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+/* 起重机吊钩 */
+.crane-hook {
+    background-color: #6A6A6A;
+    border: 2px solid #000;
+    width: 20px;
+    height: 20px;
+    z-index: 11;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+}
+
+/* 吊钩装载状态 */
+.crane-hook.loaded {
+    background-color: #808080;
+}
+
+/* 起重机绳索 */
+.crane-rope {
+    width: 2px;
+    background-color: #333;
+    position: absolute;
+}
+
+/* 重叠效果 */
+.overlap-indicator {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ff4444;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 10px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 20;
+}
+
+/* 选中状态 */
+.selected {
+    border: 2px dashed yellow !important;
+    box-shadow: 0 0 10px rgba(255, 255, 0, 0.5);
+}
+
+.operation-counter {
+    margin-left: 20px;
+    padding: 5px 10px;
+    background-color: #4a4a4a;
+    color: #fff;
+    border-radius: 5px;
+    font-size: 16px;
+} 

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>方块工匠：远古机关师</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <div class="game-header">
+            <h1>方块工匠：远古机关师</h1>
+            <div class="header-controls">
+                <div class="resources">
+                    原木: <span id="wood-count">0</span>
+                    <span class="operation-counter">操作次数: <span id="operation-count">0</span></span>
+                </div>
+            </div>
+        </div>
+
+        <div id="message-area" class="message-area"></div>
+
+        <div class="game-layout">
+            <div class="game-main">
+                <div class="game-area">
+                    <div id="game-world" class="game-world"></div>
+                    <div class="machines-list">
+                        <h3>机械列表</h3>
+                        <div id="machines-container"></div>
+                    </div>
+                </div>
+                
+                <div class="controls-row">
+                    <div class="actions">
+                        <h3>基础操作</h3>
+                        <button id="btn-create-vehicle">建造车辆 (消耗1原木)</button>
+                        <button id="btn-create-crane">建造起重机 (消耗2原木)</button>
+                    </div>
+
+                    <div id="vehicle-controls" class="machine-controls" style="display: none;">
+                        <h3>车辆控制</h3>
+                        <button id="btn-vehicle-move-left">向左移动</button>
+                        <button id="btn-vehicle-move-right">向右移动</button>
+                        <button id="btn-vehicle-load-left">装载左侧</button>
+                        <button id="btn-vehicle-load-right">装载右侧</button>
+                        <button id="btn-vehicle-unload-left">卸载左侧</button>
+                        <button id="btn-vehicle-unload-right">卸载右侧</button>
+                        <button id="btn-vehicle-demolish">拆除车辆</button>
+                    </div>
+
+                    <div id="crane-controls" class="machine-controls" style="display: none;">
+                        <h3>起重机控制</h3>
+                        <button id="btn-crane-move-up">吊钩上升</button>
+                        <button id="btn-crane-move-down">吊钩下降</button>
+                        <button id="btn-crane-attach">黏附方块</button>
+                        <button id="btn-crane-detach">脱离方块</button>
+                        <button id="btn-crane-demolish">拆除起重机</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="help-panel">
+                <h2>游戏说明</h2>
+                
+                <div class="help-section">
+                    <h3>游戏介绍</h3>
+                    <p>这是一款融合建造与资源管理的古代机械游戏。你需要通过操控车辆和起重机来收集资源、建造设施。</p>
+                    <ul>
+                        <li>使用车辆收集树木可以获得原木资源</li>
+                        <li>用1个原木可以建造一辆车</li>
+                        <li>用2个原木可以建造一台起重机</li>
+                        <li>树木会在现有树木附近自然生长</li>
+                        <li>每10次操作后，树木有机会在现有树木附近生长</li>
+                        <li>树木生长概率随现有树木数量增加而提高</li>
+                    </ul>
+                </div>
+
+                <div class="help-section">
+                    <h3>车辆控制</h3>
+                    <ul>
+                        <li>A/D - 向左/右移动</li>
+                        <li>R - 智能装载（优先装载树木，其次装载上次移动方向相反侧的方块）</li>
+                        <li>F - 智能卸载（优先卸载到上次移动方向相反侧）</li>
+                        <li>Q/E - 左/右侧装载</li>
+                        <li>Z/C - 左/右侧卸载</li>
+                        <li>X - 拆除车辆（返还原木）</li>
+                    </ul>
+                    <p>车辆可以在地形上自动上下移动一格高度，但不能跨越大于一格的高度差。</p>
+                </div>
+
+                <div class="help-section">
+                    <h3>起重机控制</h3>
+                    <ul>
+                        <li>W/S - 吊钩上升/下降</li>
+                        <li>R - 吊钩附着</li>
+                        <li>F - 吊钩分离</li>
+                        <li>V - 拆除起重机（返还原木）</li>
+                    </ul>
+                    <p>起重机可以垂直搬运方块，适合建造高层结构或跨越大段距离。拆除时需要确保吊钩回到基座位置且没有携带方块。</p>
+                </div>
+
+                <div class="help-section">
+                    <h3>操作提示</h3>
+                    <ul>
+                        <li>点击机械可以选中它进行操作</li>
+                        <li>智能装载会优先寻找树木，其次根据移动方向选择装载位置</li>
+                        <li>智能卸载会根据移动方向选择合适的卸载位置</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 
